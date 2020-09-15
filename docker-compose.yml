@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    pdns:
+        build:
+            context: ./pdns
+        restart: always
+        ports:
+            - '53:53'
+        depends_on:
+            - db
+    db:
+        build: 
+            context: ./db/
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: r00t_passw0rd
+            MYSQL_USER: pdns
+            MYSQL_PASSWORD: pdns_passw0rd
+            MYSQL_DATABESE: pdns
+        ports: 
+            - '3306:3306'
