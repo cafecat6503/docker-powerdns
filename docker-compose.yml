@@ -14,8 +14,5 @@ services:
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: r00t_passw0rd
-            MYSQL_USER: pdns
-            MYSQL_PASSWORD: pdns_passw0rd
-            MYSQL_DATABESE: pdns
         ports: 
             - '3306:3306'

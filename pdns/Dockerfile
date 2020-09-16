@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 RUN apk update --no-cache && apk upgrade
-RUN apk add pdns --no-cache
+RUN apk add pdns pdns-backend-mysql --no-cache
 
 ADD ./pdns.conf /etc/pdns
 
