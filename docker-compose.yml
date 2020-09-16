@@ -11,8 +11,13 @@ services:
     db:
         build: 
             context: ./db/
+        volumes: 
+            - db:/var/lib/mysql
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: r00t_passw0rd
         ports: 
             - '3306:3306'
+volumes: 
+    db:
+        driver: local
