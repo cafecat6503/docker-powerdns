@@ -4,10 +4,17 @@ services:
         build:
             context: ./pdns
         restart: always
-        ports:
-            - '5300:53'
         depends_on:
             - db
+    recursor:
+        build:
+            context: ./recursor
+        restart: always
+        depends_on: 
+            - db
+            - pdns
+        ports:
+            - '53:53'
     db:
         build: 
             context: ./db/
@@ -16,9 +23,19 @@ services:
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_DATABASE: ${DB_DATABASE}
         ports: 
             - '3306:3306'
+    pdns-admin:
+        image: ngoduykhanh/powerdns-admin:latest
+        ports:
+            - '80:80'
+        volumes:
+            - pdns-admin:/data
+        restart: always
+        depends_on: 
+            - pdns
 volumes: 
     db:
+        driver: local
+    pdns-admin:
         driver: local
